@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Learn Express.js",
+    "description": "Understand routing and middleware",
+    "completed": true
+  },
+  {
+    "id": 2,
+    "title": "Learn React",
+    "description": "Understand components, state, and effects",
+    "completed": true
+  },
+  {
+    "id": 3,
+    "title": "Build a CRUD app",
+    "description": "Combine frontend and backend to create a fullstack application",
+    "completed": true
+  },
+  {
+    "id": 4,
+    "title": "wad",
+    "description": "awdawd",
+    "completed": false
+  }
+]
