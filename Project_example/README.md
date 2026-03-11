@@ -20,8 +20,9 @@ El proyecto se divide en 3 componentes principales:
    - Construida con React 18 y Vite, consume directamente la API del backend mediante peticiones con Axios (en el puerto 3000).
    - Puedes crear, editar, marcar como completadas y eliminar tareas dinámicamente.
 
-3. **`e2e-tests/` (Python Selenium Testing)**
-   - Scripts de automatización en Python que interactúan con el Frontend para validar la carga retrasada debido a la latencia del Backend.
+3. **`e2e-tests/` (Java + Gradle Selenium Testing)**
+   - Scripts de automatización en Java que interactúan con el Frontend para validar la carga retrasada debido a la latencia del Backend.
+   - Usa Gradle para la gestión de dependencias WebDriver.
    - Dos demostraciones didácticas incluidas: un intento que falla (sin esperas intencionalmente) y un éxito usando "Implicit Waits".
 
 ---
@@ -29,8 +30,9 @@ El proyecto se divide en 3 componentes principales:
 ## 🛠️ Requisitos Previos
 
 - **Node.js** v18+ (para el Frontend y Backend).
-- **Python** 3.8+ y pip (para ejecutar los scripts de Selenium).
-- **Navegador Google Chrome** (requerido para el WebDriver de Selenium de los tests Python).
+- **Java JDK** 11+ o superior (para ejecutar los scripts de Selenium con Java).
+- **Gradle** (para la resolución de dependencias y ejecución de tareas).
+- **Navegador Google Chrome** (requerido para el WebDriver de Selenium).
 
 ---
 
@@ -57,23 +59,21 @@ npm run dev
 > El frontend ahora será accesible en `http://localhost:5173`. Visítalo para usar la App. Notarás que la tabla Inicial demorará 3 segundos en cargarse a propósito.
 
 ### 3️⃣ Ejecutar Pruebas Automatizadas con Selenium (Terminal 3)
-La demostración de Selenium busca específicamente ejemplificar cómo manejar un elemento DOM que tarda en aparecer en pantalla debido a las asincronizaciones con el servidor.
+La demostración de Selenium busca específicamente ejemplificar cómo manejar un elemento DOM que tarda en aparecer en pantalla debido a las asincronizaciones con el servidor. Se ha recodificado para ejecutarse utilizando **Java y Gradle**.
 
-Navega a la carpeta `e2e-tests` e instala el entorno Python:
+Navega a la carpeta `Project_example/e2e-tests`:
 ```bash
-cd e2e-tests
-python -m pip install -r requirements.txt
-npm install
+cd Project_example/e2e-tests
 ```
 
 **Demostración A: Prueba SIN esperas (Debe fallar intencionalmente) ❌**
 ```bash
-npm run test:fail
+gradle runFail
 ```
 > _**Comportamiento:** Como el WebDriver consulta el DOM inmediatamente apenas carga el sitio en el puerto 5173, no encuentra las tareas renderizadas (que demorarán 3 segundos). Arrojará una excepción de tipo `NoSuchElementException`._
 
 **Demostración B: Prueba CON Esperas Implícitas (Ejecución exitosa) ✅**
 ```bash
-npm run test:success
+gradle runSuccess
 ```
 > _**Comportamiento:** El script configura un `driver.implicitly_wait(10)` previo a la búsqueda. Cuando busca la información en la tabla, aunque no esté inicialmente, no falla hasta que agoten los 10 segundos buscando internamente en iteraciones. El elemento se rinde a los 3 segundos, lo asume de forma silenciosa y declara la prueba local exitosa imprimiendo el título de la tarea por consola._

@@ -5,3 +5,7 @@ node_modules
 venv
 ./backend/node_modules
 ./frontend/node_modules
+./Project_example/e2e-tests/build
+./Project_example/e2e-tests/.gradle
+./Project_example/e2e-tests/bin
+./Project_example/e2e-tests/out
