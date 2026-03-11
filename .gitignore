@@ -1,11 +1,38 @@
+# OS & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.bak
+
+# Environment & Scripts
 .agent
 .github
-.vscode
+.env
+.env.local
+.env.*.local
 node_modules
 venv
-./backend/node_modules
-./frontend/node_modules
-./Project_example/e2e-tests/build
-./Project_example/e2e-tests/.gradle
-./Project_example/e2e-tests/bin
-./Project_example/e2e-tests/out
+*.log
+
+# Project Specific - Backend
+Project_example/backend/node_modules/
+Project_example/backend/npm-debug.log*
+
+# Project Specific - Frontend
+Project_example/frontend/node_modules/
+Project_example/frontend/dist/
+Project_example/frontend/build/
+Project_example/frontend/*.log
+
+# Project Specific - E2E Tests (Serenity BDD / Gradle)
+Project_example/e2e-tests/.gradle/
+Project_example/e2e-tests/build/
+Project_example/e2e-tests/bin/
+Project_example/e2e-tests/out/
+Project_example/e2e-tests/target/
+Project_example/e2e-tests/history/
+Project_example/e2e-tests/*.txt
+Project_example/e2e-tests/*.log
+*.class

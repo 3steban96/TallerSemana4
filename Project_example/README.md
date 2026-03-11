@@ -58,22 +58,38 @@ npm run dev
 ```
 > El frontend ahora será accesible en `http://localhost:5173`. Visítalo para usar la App. Notarás que la tabla Inicial demorará 3 segundos en cargarse a propósito.
 
-### 3️⃣ Ejecutar Pruebas Automatizadas con Selenium (Terminal 3)
-La demostración de Selenium busca específicamente ejemplificar cómo manejar un elemento DOM que tarda en aparecer en pantalla debido a las asincronizaciones con el servidor. Se ha recodificado para ejecutarse utilizando **Java y Gradle**.
+### 3️⃣ Ejecutar Pruebas Automatizadas con Serenity BDD (Terminal 3)
+La demostración de Selenium se ha evolucionado a un framework de grado profesional utilizando **Serenity BDD** con los patrones **Page Object Model (POM)** y **Screenplay**.
 
 Navega a la carpeta `Project_example/e2e-tests`:
 ```bash
 cd Project_example/e2e-tests
 ```
 
-**Demostración A: Prueba SIN esperas (Debe fallar intencionalmente) ❌**
+**Demostración A: Patrón POM (Page Object Model) 📄**
+Ejecuta los tests basados en el patrón clásico de Page Objects:
 ```bash
-gradle runFail
+gradle test --tests com.demo.TaskPomTest
 ```
-> _**Comportamiento:** Como el WebDriver consulta el DOM inmediatamente apenas carga el sitio en el puerto 5173, no encuentra las tareas renderizadas (que demorarán 3 segundos). Arrojará una excepción de tipo `NoSuchElementException`._
 
-**Demostración B: Prueba CON Esperas Implícitas (Ejecución exitosa) ✅**
+**Demostración B: Patrón SCREENPLAY 🎭**
+Ejecuta los tests basados en el patrón de actores, tareas e interacciones:
 ```bash
-gradle runSuccess
+gradle test --tests com.demo.TaskScreenplayTest
 ```
-> _**Comportamiento:** El script configura un `driver.implicitly_wait(10)` previo a la búsqueda. Cuando busca la información en la tabla, aunque no esté inicialmente, no falla hasta que agoten los 10 segundos buscando internamente en iteraciones. El elemento se rinde a los 3 segundos, lo asume de forma silenciosa y declara la prueba local exitosa imprimiendo el título de la tarea por consola._
+
+**Generar Reporte de Serenity 📊**
+Después de correr los tests, genera el reporte visual detallado:
+```bash
+gradle aggregate
+```
+> El reporte se encontrará en: `target/site/serenity/index.html`.
+
+---
+
+## 🏗️ Patrones de Automatización Implementados
+
+- **Page Object Model (POM):** Encapsula la estructura de la página en `TaskPage.java`.
+- **Screenplay Pattern:** Un enfoque más modular y centrado en el usuario, utilizando Actores (`Toby`), Tareas (`NavigateTo`) y Targets (`TaskListUI`).
+- **Serenity BDD:** Proporciona logs detallados, capturas de pantalla automáticas y reportes de alta calidad.
+

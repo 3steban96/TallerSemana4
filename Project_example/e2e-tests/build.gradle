@@ -1,5 +1,12 @@
 plugins {
     id 'java'
+    id 'net.serenity-bdd.serenity-gradle-plugin' version '4.0.15'
+}
+
+defaultTasks 'clean', 'test', 'aggregate'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
 
 repositories {
@@ -7,8 +14,25 @@ repositories {
 }
 
 dependencies {
+    implementation 'net.serenity-bdd:serenity-core:4.0.15'
+    implementation 'net.serenity-bdd:serenity-junit5:4.0.15'
+    implementation 'net.serenity-bdd:serenity-screenplay:4.0.15'
+    implementation 'net.serenity-bdd:serenity-screenplay-webdriver:4.0.15'
+    implementation 'net.serenity-bdd:serenity-ensure:4.0.15'
+    
     implementation 'org.seleniumhq.selenium:selenium-java:4.18.1'
     implementation 'io.github.bonigarcia:webdrivermanager:5.7.0'
+    
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.1'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        showStandardStreams = true
+        exceptionFormat = 'full'
+    }
 }
 
 task runFail(type: JavaExec) {
